@@ -1,0 +1,17 @@
+{
+  "asset_type": "agent_evaluation_benchmark",
+  "independent_redesign": true,
+  "delivery": {
+    "format": "zip",
+    "network_required": false,
+    "runtime": "harbor",
+    "schema_version": "1.4"
+  },
+  "language": "python",
+  "license": "proprietary_nonexclusive_by_agreement",
+  "name": "relayframe-runtime-repair",
+  "price_suggestion_usd": 2500,
+  "task_count": 1,
+  "task_path": ".",
+  "version": "1.0.0"
+}

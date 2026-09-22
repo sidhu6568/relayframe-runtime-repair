@@ -1,0 +1,5 @@
+Copyright (c) 2026 the seller of record. All rights reserved.
+
+This benchmark package is offered for licensing by the seller identified on the marketplace listing or purchase agreement. Possession of a review or evaluation copy does not grant permission to publish, redistribute, sublicense, or incorporate the package into a public dataset. Rights granted through a marketplace purchase or separate written agreement are governed by that agreement.
+
+The Python base image and Python standard library remain subject to their respective upstream licenses. They are referenced as runtime dependencies and are not redistributed in this archive.
