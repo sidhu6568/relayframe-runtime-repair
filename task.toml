@@ -1,0 +1,46 @@
+schema_version = "1.4"
+artifacts = ["/app/relayframe/decoder.py"]
+
+[task]
+name = "independent/relayframe-runtime-repair"
+version = "1.0.0"
+description = "Repair an incremental telemetry decoder across framing boundaries, serial-number replay protection, sparse reassembly, and bounded decompression."
+keywords = ["debugging", "runtime-repair", "streaming", "binary-protocol", "reassembly", "harbor"]
+
+[metadata]
+category = "programming"
+subcategory = "runtime-debugging"
+difficulty = "hard"
+tags = ["python", "protocols", "state-machine", "crc32", "zlib", "adversarial-testing"]
+task_objective = ["debug", "implement"]
+artifact_type = ["codebase", "evaluation-environment"]
+expert_time_estimate_hours = 5
+difficulty_explanation = "The visible implementation assumes that a transport read is one complete, ordered logical record. A correct repair must coordinate a persistent escape-aware framing state machine, validate before replay mutation, compare 16-bit serials across wraparound, merge interleaved absolute ranges, resolve overlap conflicts, enforce deterministic LRU eviction, and decompress only completed records under a hard output bound. Local patches tend to fix one layer while poisoning another."
+solution_explanation = "The oracle uses a persistent delimiter/escape parser, strict header and CRC validation, a per-channel 64-bit serial bitmap, sparse byte-presence assemblies keyed by channel and record identity, deterministic touch ordering, and bounded whole-record zlib validation. Invalid frames resynchronize without contaminating later traffic."
+verification_explanation = "A separate offline verifier runs the submitted decoder as an unprivileged subprocess. Thirty-one deterministic checks cover every specified behavior, including byte-by-byte and randomized chunking, escape splits, corruption recovery, replay rollover and old-window boundaries, CRC state poisoning, maximum accepted sizes, reversed and overlapping segments, cross-channel identity, compression failure cleanup, LRU eviction, and a seeded metamorphic corpus. The verifier builds wire frames independently and never imports candidate encoding logic or the oracle solution."
+independent_redesign = true
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 240.0
+environment_mode = "separate"
+user = "root"
+
+[verifier.environment]
+os = "linux"
+network_mode = "no-network"
+cpus = 1
+memory_mb = 1024
+storage_mb = 4096
+gpus = 0
+
+[environment]
+os = "linux"
+network_mode = "no-network"
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 1024
+storage_mb = 4096
+gpus = 0
