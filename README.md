@@ -37,4 +37,3 @@ The intentionally clean capture is not a substitute for the verifier. It exists 
 The verifier generates protocol frames independently and executes the candidate in a fresh unprivileged subprocess for each check. It covers individual byte boundaries, split escapes, shared delimiters, malformed-frame recovery, CRC ordering, modulo-16-bit replay boundaries, absolute-offset assembly, gaps and overlaps, cross-channel identity, exact size limits, bounded zlib handling, deterministic LRU eviction, and a generated metamorphic corpus under ten transport partitions.
 
 All checks are binary requirements. Partial results are recorded only as diagnostics; the Harbor reward is `1` only when all 31 checks pass.
-
